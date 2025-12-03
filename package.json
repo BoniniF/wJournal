@@ -1,0 +1,8 @@
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-fetch": "^3.0.0"
+  }
+}
