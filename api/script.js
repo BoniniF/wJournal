@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   try {
-    const jsonURL = "states.json";
+    const jsonURL = "https://w-journal.vercel.app/states.json";
     const states = await fetch(jsonURL).then(r => r.json());
 
     const result = {};
