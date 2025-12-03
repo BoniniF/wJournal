@@ -1,0 +1,11 @@
+{
+  "Europa": {
+    "Russia": ["https://www.ng.ru/", "https://novayagazeta.ru/", "https://www.kommersant.ru/", "https://www.gazeta.ru/", "https://iz.ru/newspaper","https://www.pravda.ru/"],
+    "Francia": ["https://www.lemonde.fr/", "https://www.lefigaro.fr/", "https://www.thejournal.ie/", "https://www.leparisien.fr/","https://www.la-croix.com/"],
+    "Ucraina": ["https://gazeta.ua/","https://fakty.ua/","https://www.golos.com.ua/","https://zn.ua/","https://glavcom.ua/"]
+  },
+  "Asia": {
+    "Cina": ["http://www.people.com.cn/", "http://www.news.cn/", "pechino"],
+    "Istraele": ["https://www.haaretz.co.il/","https://www.israelhayom.co.il/","https://www.ynet.co.il/home/0,7340,L-8,00.html","https://www.globes.co.il/","https://www.maariv.co.il/"]
+  }
+}

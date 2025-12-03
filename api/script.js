@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   try {
-    const jsonURL = "https://bonini.ct.ws/wJournal/states.json";
+    const jsonURL = "states.json";
     const states = await fetch(jsonURL).then(r => r.json());
 
     const result = {};
