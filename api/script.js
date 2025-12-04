@@ -23,13 +23,13 @@ export default async function handler(req, res) {
 
             let links = extractLinks(html, url);
 
-           // limita a max 10.000 caratteri (senza spezzare)
-           links = clampLinks(links, 10000);
-           result[continente][paese].push({
-           source: url,
-           extracted: links
-           });
+            // limita a max 10.000 caratteri (senza spezzare)
+            links = clampLinks(links, 10000);
 
+            result[continente][paese].push({
+              source: url,
+              extracted: links
+            });
 
           } catch (e) {
             console.error("Errore nel fetch:", url, e);
@@ -46,6 +46,10 @@ export default async function handler(req, res) {
   }
 }
 
+// ------------------------------
+// FUNZIONI ESTERNE
+// ------------------------------
+
 function shuffle(arr) {
   return arr
     .map(a => ({ sort: Math.random(), value: a }))
@@ -57,8 +61,6 @@ function extractLinks(html, baseUrl) {
   const links = [];
   const tmp = html.match(/<a\s+[^>]*href=["']([^"']+)["']/gi);
 
-
-  
   if (!tmp) return links;
 
   for (const tag of tmp) {
@@ -78,7 +80,10 @@ function extractLinks(html, baseUrl) {
     if (link.startsWith("http")) links.push(link);
   }
 
-  function clampLinks(links, maxChars = 10000) {
+  return links;
+}
+
+function clampLinks(links, maxChars = 10000) {
   const result = [];
   let total = 0;
 
@@ -92,8 +97,4 @@ function extractLinks(html, baseUrl) {
   }
 
   return result;
-}
-
-
-  return links;
 }
