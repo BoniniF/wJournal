@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     // 1. Otteniamo i risultati dal tuo primo endpoint
-    const apiUrl = `${req.headers.origin}/api/tuoEndpoint`; // <-- CAMBIA "tuoEndpoint" col nome del tuo file
+    const apiUrl = `https://w-journal.vercel.app/api/tutte.js`; // <-- CAMBIA "tuoEndpoint" col nome del tuo file
     const mainData = await fetch(apiUrl).then(r => r.json());
 
     if (!mainData || !mainData.results)
