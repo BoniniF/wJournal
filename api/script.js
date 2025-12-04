@@ -20,12 +20,16 @@ export default async function handler(req, res) {
         for (const url of randomLinks) {
           try {
             const html = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" }}).then(r => r.text());
-            
-            const links = extractLinks(html, url);
-            result[continente][paese].push({
-              source: url,
-              extracted: links
-            });
+
+            let links = extractLinks(html, url);
+
+           // limita a max 10.000 caratteri (senza spezzare)
+           links = clampLinks(links, 10000);
+           result[continente][paese].push({
+           source: url,
+           extracted: links
+           });
+
 
           } catch (e) {
             console.error("Errore nel fetch:", url, e);
@@ -53,6 +57,8 @@ function extractLinks(html, baseUrl) {
   const links = [];
   const tmp = html.match(/<a\s+[^>]*href=["']([^"']+)["']/gi);
 
+
+  
   if (!tmp) return links;
 
   for (const tag of tmp) {
@@ -71,6 +77,23 @@ function extractLinks(html, baseUrl) {
 
     if (link.startsWith("http")) links.push(link);
   }
+
+  function clampLinks(links, maxChars = 10000) {
+  const result = [];
+  let total = 0;
+
+  for (const link of links) {
+    const len = link.length;
+
+    if (total + len > maxChars) break;
+
+    result.push(link);
+    total += len;
+  }
+
+  return result;
+}
+
 
   return links;
 }
