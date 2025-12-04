@@ -2,7 +2,7 @@
 export default async function handler(req, res) {
   try {
     // 1. URL della API dove hai il JSON
-    const API_URL = `${req.headers.origin}/api/script.js`;
+    const API_URL = `https://w-journal.vercel.app/api/script.js`;
 
     // 2. Ottieni i dati
     const states = await fetch(API_URL).then(r => r.json());
