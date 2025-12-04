@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     // 1. URL del tuo endpoint precedente
-    const SOURCE_URL = "https://tuodominio.com/api/ilTuoHandler"; 
+    const SOURCE_URL = "https://w-journal.vercel.app/api/tutte.js"; 
 
     // 2. Ottieni i risultati elaborati dal primo script
     const data = await fetch(SOURCE_URL).then(r => r.json());
