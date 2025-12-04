@@ -24,7 +24,7 @@ export default async function handler(req, res) {
             let links = extractLinks(html, url);
 
             // limita a max 10.000 caratteri (senza spezzare)
-            links = clampLinks(links, 10000);
+            links = clampLinks(links, 9600);
 
             result[continente][paese].push({
               source: url,
