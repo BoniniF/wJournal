@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     if (!groups?.length)
       return res.status(500).json({ error: "Nessun gruppo link" });
 
-    const firstGroup = groups[0];
+    const firstGroup = groups[1];
     const links = firstGroup.extracted || [];
 
     if (!links.length)
