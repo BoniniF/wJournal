@@ -31,7 +31,7 @@ export default function ScreenshotsPage({ data }) {
 export async function getServerSideProps() {
   const res = await fetch(
     process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/api/screenshot`
+      ? `https://${process.env.VERCEL_URL}/api/mostra.js`
       : "http://localhost:3000/api/screenshot"
   );
 
