@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
 
-const API_URL = "https://w-journal.vercel.app/api/script.js";
+const API_URL = "https://w-journal.vercel.app/api/tutte.js";
 
 // cartella dove salvare gli screenshots
 const OUT = "./screens";
