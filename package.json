@@ -5,7 +5,7 @@
   "dependencies": {
     "cheerio": "^1.0.0",
     "node-fetch": "^3.0.0",
-    "puppeteer-core": "^22.0.0",
-    "@sparticuz/chromium": "^128.0.0"
+    "puppeteer-core": "^21.7.0",
+"@sparticuz/chromium": "^119.0.0"
   }
 }
