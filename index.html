@@ -84,5 +84,23 @@ async function loadData() {
 }
 loadData();
 </script>
+
+<script>
+window.addEventListener("load", async () => {
+  // Prende tutto l'HTML mostrato nella pagina
+  const htmlContent = document.documentElement.outerHTML;
+
+  await fetch("/api/sendMail.js", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      html: htmlContent
+    })
+  });
+});
+</script>
+
 </body>
 </html>
