@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "TUO_INDIRIZZO_EMAIL",
+      to: "filippomariabonini@libero.it",
       subject: "Pagina Focus - Report Automatico",
       html
     });
