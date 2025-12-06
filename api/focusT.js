@@ -3,7 +3,7 @@ import * as cheerio from "cheerio";
 // Funzione per tradurre con Google
 import fetch from "node-fetch";
 
-async function translateToItalianClassic(text) {
+async function translateToItalian(text) {
   const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=it&dt=t&q=" + encodeURIComponent(text);
 
   const res = await fetch(url);
