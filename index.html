@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<title>Focus Articles</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  h1 { margin-top: 40px; }
+  .country { margin-left: 20px; }
+  .article { margin-left: 40px; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; }
+  img { max-width: 300px; display: block; margin: 5px 0; }
+</style>
+</head>
+<body>
+
+<h1>Articoli estratti (Focus Mode)</h1>
+<div id="content"></div>
+
+<script>
+async function loadData() {
+  const res = await fetch("/api/focus.js");
+  const json = await res.json();
+  const container = document.getElementById("content");
+
+  const data = json.results;
+
+  for (const continent of Object.keys(data)) {
+    const h = document.createElement("h1");
+    h.textContent = continent;
+    container.appendChild(h);
+
+    const countries = data[continent];
+
+    for (const country of Object.keys(countries)) {
+      const h2 = document.createElement("h2");
+      h2.textContent = "🇺🇳 " + country;
+      container.appendChild(h2);
+
+      const articles = countries[country];
+
+      for (const art of articles) {
+        const div = document.createElement("div");
+        div.className = "article";
+
+        if (art.error) {
+          div.innerHTML = `<strong>Errore:</strong> ${art.error}`;
+        } else {
+          div.innerHTML = `
+            <h3><a href="${art.url}" target="_blank">${art.url}</a></h3>
+            <p>${art.text?.replace(/\n/g, "<br>")}</p>
+            <div>
+              ${(art.images || [])
+                .map(src => `<img src="${src}" alt="image">`)
+                .join("")}
+            </div>
+          `;
+        }
+
+        container.appendChild(div);
+      }
+    }
+  }
+}
+
+loadData();
+</script>
+
+</body>
+</html>
