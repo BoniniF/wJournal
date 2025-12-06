@@ -5,7 +5,7 @@
     "Ucraina": ["https://gazeta.ua/","https://fakty.ua/","https://www.golos.com.ua/","https://zn.ua/","https://glavcom.ua/"]
   },
   "Asia": {
-    "Cina": ["http://www.people.com.cn/", "http://www.news.cn/", "pechino"],
+    "Cina": ["http://www.people.com.cn/", "http://www.news.cn/", "https://www.bjd.com.cn/"],
     "Istraele": ["https://www.haaretz.co.il/","https://www.israelhayom.co.il/","https://www.ynet.co.il/home/0,7340,L-8,00.html","https://www.globes.co.il/","https://www.maariv.co.il/"]
   }
 }
