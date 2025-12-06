@@ -22,8 +22,8 @@ export default async function handler(req, res) {
     });
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: ["filippomariabonini@libero.it", "boninifilippo.com@gmail.com"],
+      from: `"BoniniF's wJournal - demo" <${process.env.EMAIL_USER}>`,
+      to: ["filippomariabonini@libero.it", "gcaccialanza@salesianisesto.it", "bonini.filippo@studenti.salesianisesto.it"],
       subject: "Pagina Focus - Report Automatico",
       html
     });

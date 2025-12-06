@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Focus Articles</title>
+<title>wJournal</title>
 <style>
   body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
   table { width: 100%; border-collapse: collapse; }
@@ -19,12 +19,12 @@
   .images-container { overflow-x: auto; white-space: nowrap; max-width: 100%; }
   img { max-width: 100%; height: auto; display: inline-block; margin: 5px; vertical-align: top; }
   
-  @media only screen and (min-width: 601px) {
-    #main-table { table-layout: fixed; }
-    #content-cell { width: 75%; }
-    #toc-cell { width: 25%; vertical-align: top; }
-    #toc { border-bottom: none; border-left: 1px solid #ddd; position: relative; /* Non sticky per email */ max-height: none; overflow-y: visible; }
-  }
+ @media only screen and (min-width: 601px) {
+  #main-table { table-layout: fixed; direction: rtl; }  /* Aggiungi direction: rtl; */
+  #content-cell { width: 75%; direction: ltr; }  /* Aggiungi direction: ltr; */
+  #toc-cell { width: 25%; vertical-align: top; direction: ltr; }  /* Aggiungi direction: ltr; */
+  #toc { border-bottom: none; border-left: 1px solid #ddd; position: relative; max-height: none; overflow-y: visible; }
+}
   
   @media only screen and (max-width: 600px) {
     #content-cell, #toc-cell { display: block; width: 100% !important; }
@@ -35,15 +35,15 @@
 <body>
 <table id="main-table" cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td id="content-cell" valign="top">
-      <div id="content">
-        <h1>Articoli estratti (Focus Mode)</h1>
-      </div>
-    </td>
     <td id="toc-cell" valign="top">
       <div id="toc">
         <h3>Navigazione</h3>
         <ul></ul>
+      </div>
+    </td>
+    <td id="content-cell" valign="top">
+      <div id="content">
+        <h1>Articoli estratti (Focus Mode)</h1>
       </div>
     </td>
   </tr>
