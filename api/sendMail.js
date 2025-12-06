@@ -20,10 +20,10 @@ export default async function handler(req, res) {
         pass: process.env.EMAIL_PASS   // password app (non la password normale!)
       }
     });
-
+//"gcaccialanza@salesianisesto.it", 
     await transporter.sendMail({
       from: `"BoniniF's wJournal - demo" <${process.env.EMAIL_USER}>`,
-      to: ["filippomariabonini@libero.it", "gcaccialanza@salesianisesto.it", "bonini.filippo@studenti.salesianisesto.it"],
+      to: ["filippomariabonini@libero.it", "bonini.filippo@studenti.salesianisesto.it"],
       subject: "Pagina Focus - Report Automatico",
       html
     });
