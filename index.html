@@ -32,19 +32,20 @@ async function loadData() {
   const container = document.getElementById("content");
   const tocList = document.querySelector("#toc ul");
   const data = json.results;
-  
+
+  console.log("Caricamento dati...");
+
   for (const continent of Object.keys(data)) {
     const continentId = continent.toLowerCase().replace(/\s+/g, '-');
     const h = document.createElement("h1");
     h.textContent = continent;
     h.id = continentId;
     container.appendChild(h);
-    
-    // Aggiungi link al TOC per il continente
+
     const continentLi = document.createElement("li");
     continentLi.innerHTML = `<a href="#${continentId}">${continent}</a>`;
     tocList.appendChild(continentLi);
-    
+
     const countries = data[continent];
     for (const country of Object.keys(countries)) {
       const countryId = `${continentId}-${country.toLowerCase().replace(/\s+/g, '-')}`;
@@ -53,13 +54,12 @@ async function loadData() {
       h2.id = countryId;
       h2.className = "country";
       container.appendChild(h2);
-      
-      // Aggiungi link al TOC per il paese (indentato)
+
       const countryLi = document.createElement("li");
       countryLi.className = "country-link";
       countryLi.innerHTML = `<a href="#${countryId}">🇺🇳 ${country}</a>`;
       tocList.appendChild(countryLi);
-      
+
       const articles = countries[country];
       for (const art of articles) {
         const div = document.createElement("div");
@@ -81,28 +81,31 @@ async function loadData() {
       }
     }
   }
+
+  console.log("Dati caricati e DOM popolato");
 }
-loadData();
 </script>
 
 <script>
 async function sendFinalHTMLByEmail() {
-  // Aspettiamo che loadData abbia completato il rendering
+  console.log("Inizio attesa loadData...");
   await loadData();
+  console.log("DOM completo, invio email...");
 
-  // Ora il DOM è completo e contiene TUTTO
   const fullHTML = document.documentElement.outerHTML;
 
-  await fetch("/api/sendMail.js", {
+  const res = await fetch("/api/sendMail.js", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ html: fullHTML })
   });
+
+  console.log("Risposta API:", await res.text());
 }
 
-// Avvia processo soltanto dopo che la pagina è pronta
 window.addEventListener("DOMContentLoaded", sendFinalHTMLByEmail);
 </script>
+
 
 </body>
 </html>
