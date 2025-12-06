@@ -86,20 +86,22 @@ loadData();
 </script>
 
 <script>
-window.addEventListener("load", async () => {
-  // Prende tutto l'HTML mostrato nella pagina
-  const htmlContent = document.documentElement.outerHTML;
+async function sendFinalHTMLByEmail() {
+  // Aspettiamo che loadData abbia completato il rendering
+  await loadData();
+
+  // Ora il DOM è completo e contiene TUTTO
+  const fullHTML = document.documentElement.outerHTML;
 
   await fetch("/api/sendMail.js", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      html: htmlContent
-    })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ html: fullHTML })
   });
-});
+}
+
+// Avvia processo soltanto dopo che la pagina è pronta
+window.addEventListener("DOMContentLoaded", sendFinalHTMLByEmail);
 </script>
 
 </body>
