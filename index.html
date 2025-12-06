@@ -69,7 +69,7 @@ async function loadData() {
         } else {
           div.innerHTML = `
             <h3><a href="${art.url}" target="_blank">${art.url}</a></h3>
-            <p>${art.text?.replace(/\n/g, "<br>")}</p>
+            <p>${art.translated_text_it?.replace(/\n/g, "<br>")}</p>
             <div class="images-container">
               ${(art.images || [])
                 .map(src => `<img src="${src}" alt="image">`)
