@@ -1,25 +1,17 @@
 import * as cheerio from "cheerio";
 
 // Funzione per tradurre con Google
-async function translateToItalian(text) {
-  const key = process.env.GOOGLE_TRANSLATE_KEY;
+import fetch from "node-fetch";
 
-  const res = await fetch(
-    `https://translation.googleapis.com/language/translate/v2?key=${key}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        q: text,
-        target: "it",
-        format: "text"
-      })
-    }
-  );
+async function translateToItalianClassic(text) {
+  const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=it&dt=t&q=" + encodeURIComponent(text);
 
+  const res = await fetch(url);
   const data = await res.json();
-  const translated = data?.data?.translations?.[0]?.translatedText || "";
-  const detected = data?.data?.translations?.[0]?.detectedSourceLanguage || "unknown";
+
+  // data[0] contiene un array di frasi tradotte
+  const translated = data[0].map(item => item[0]).join("");
+  const detected = data[2]; // lingua rilevata
 
   return { translated, detected };
 }
