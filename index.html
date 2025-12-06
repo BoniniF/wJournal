@@ -2,11 +2,13 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Focus Articles</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 20px; display: grid; grid-template-columns: 75% auto; gap: 20px; }
-  #content { grid-column: 1; }
-  #toc { grid-column: 2; position: sticky; top: 20px; padding: 15px; border-left: 1px solid #ddd; max-height: 80vh; overflow-y: auto; }
+  body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+  table { width: 100%; border-collapse: collapse; }
+  #content { padding: 20px; }
+  #toc { padding: 15px; border-bottom: 1px solid #ddd; background: #f9f9f9; }
   #toc h3 { margin-top: 0; }
   #toc ul { list-style: none; padding: 0; }
   #toc li { margin-bottom: 5px; }
@@ -15,16 +17,37 @@
   .country { margin-left: 20px; }
   .article { margin-left: 40px; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; }
   .images-container { overflow-x: auto; white-space: nowrap; max-width: 100%; }
-  img { max-width: 300px; display: inline-block; margin: 5px; vertical-align: top; }
+  img { max-width: 100%; height: auto; display: inline-block; margin: 5px; vertical-align: top; }
+  
+  @media only screen and (min-width: 601px) {
+    #main-table { table-layout: fixed; }
+    #content-cell { width: 75%; }
+    #toc-cell { width: 25%; vertical-align: top; }
+    #toc { border-bottom: none; border-left: 1px solid #ddd; position: relative; /* Non sticky per email */ max-height: none; overflow-y: visible; }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    #content-cell, #toc-cell { display: block; width: 100% !important; }
+    img { max-width: 100% !important; }
+  }
 </style>
 </head>
 <body>
-<h1>Articoli estratti (Focus Mode)</h1>
-<div id="content"></div>
-<div id="toc">
-  <h3>Navigazione</h3>
-  <ul></ul>
-</div>
+<table id="main-table" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td id="content-cell" valign="top">
+      <div id="content">
+        <h1>Articoli estratti (Focus Mode)</h1>
+      </div>
+    </td>
+    <td id="toc-cell" valign="top">
+      <div id="toc">
+        <h3>Navigazione</h3>
+        <ul></ul>
+      </div>
+    </td>
+  </tr>
+</table>
 <script>
 async function loadData() {
   const res = await fetch("/api/focusT.js");
@@ -32,20 +55,20 @@ async function loadData() {
   const container = document.getElementById("content");
   const tocList = document.querySelector("#toc ul");
   const data = json.results;
-
   console.log("Caricamento dati...");
-
+  
   for (const continent of Object.keys(data)) {
     const continentId = continent.toLowerCase().replace(/\s+/g, '-');
     const h = document.createElement("h1");
     h.textContent = continent;
     h.id = continentId;
+    h.style.marginTop = "40px"; // Inline per ridondanza
     container.appendChild(h);
-
+    
     const continentLi = document.createElement("li");
     continentLi.innerHTML = `<a href="#${continentId}">${continent}</a>`;
     tocList.appendChild(continentLi);
-
+    
     const countries = data[continent];
     for (const country of Object.keys(countries)) {
       const countryId = `${continentId}-${country.toLowerCase().replace(/\s+/g, '-')}`;
@@ -53,26 +76,34 @@ async function loadData() {
       h2.textContent = "🇺🇳 " + country;
       h2.id = countryId;
       h2.className = "country";
+      h2.style.marginLeft = "20px";
       container.appendChild(h2);
-
+      
       const countryLi = document.createElement("li");
       countryLi.className = "country-link";
       countryLi.innerHTML = `<a href="#${countryId}">🇺🇳 ${country}</a>`;
+      countryLi.style.marginLeft = "15px";
       tocList.appendChild(countryLi);
-
+      
       const articles = countries[country];
       for (const art of articles) {
         const div = document.createElement("div");
         div.className = "article";
+        div.style.marginLeft = "40px";
+        div.style.padding = "15px";
+        div.style.border = "1px solid #ddd";
+        div.style.marginBottom = "20px";
+        
         if (art.error) {
           div.innerHTML = `<strong>Errore:</strong> ${art.error}`;
         } else {
+          // Nota: Per immagini in email, qui usiamo src esterni; server-side converti in CID/base64
           div.innerHTML = `
             <h3><a href="${art.url}" target="_blank">${art.url}</a></h3>
             <p>${art.translated_text_it?.replace(/\n/g, "<br>")}</p>
-            <div class="images-container">
+            <div class="images-container" style="overflow-x: auto; white-space: nowrap; max-width: 100%;">
               ${(art.images || [])
-                .map(src => `<img src="${src}" alt="image">`)
+                .map(src => `<img src="${src}" alt="Immagine articolo" style="max-width: 100%; height: auto; display: inline-block; margin: 5px; vertical-align: top;">`)
                 .join("")}
             </div>
           `;
@@ -81,31 +112,33 @@ async function loadData() {
       }
     }
   }
-
   console.log("Dati caricati e DOM popolato");
 }
 </script>
-
 <script>
 async function sendFinalHTMLByEmail() {
   console.log("Inizio attesa loadData...");
   await loadData();
   console.log("DOM completo, invio email...");
-
-  const fullHTML = document.documentElement.outerHTML;
-
+  
+  // Pulizia per email: Rimuovi script, aggiungi inline styles se necessario
+  const scripts = document.querySelectorAll('script');
+  scripts.forEach(script => script.remove());
+  
+  // Sposta stili in inline dove possibile (ma già molti in <style>)
+  const fullHTML = '<!DOCTYPE html>' + document.documentElement.innerHTML;
+  
   const res = await fetch("/api/sendMail.js", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ html: fullHTML })
   });
-
   console.log("Risposta API:", await res.text());
 }
-
 window.addEventListener("DOMContentLoaded", sendFinalHTMLByEmail);
 </script>
-
-
+<footer style="font-size: 12px; text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
+  Inviato da [Il tuo nome/indirizzo]. <a href="[link unsubscribe]">Disiscriviti</a> | Problemi? Contattaci.
+</footer>
 </body>
 </html>
