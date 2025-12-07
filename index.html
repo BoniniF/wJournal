@@ -101,9 +101,12 @@ async function loadData() {
           div.innerHTML = `
             <h3><a href="${art.url}" target="_blank">${art.url}</a></h3>
             <p>${art.translated_text_it?.replace(/\n/g, "<br>")}</p>
-            <div class="images-container" style="overflow-x: auto; white-space: nowrap; max-width: 100%;">
+            <div class="images-container" style="overflow-x: auto; white-space: nowrap; max-width: 100%; display: block;">
               ${(art.images || [])
-                .map(src => `<img src="${src}" alt="Immagine articolo" style="max-width: 100%; height: auto; display: inline-block; margin: 5px; vertical-align: top;">`)
+				.map(src => {
+				const normalizedSrc = src.startsWith('//') ? 'https:' + src : src;
+				return `<img src="${normalizedSrc}" alt="Immagine articolo" style="max-width: 100%; height: auto; display: inline-block; margin: 5px; vertical-align: top;">`;
+				})
                 .join("")}
             </div>
           `;
