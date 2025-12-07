@@ -73,7 +73,17 @@ async function loadData() {
     for (const country of Object.keys(countries)) {
       const countryId = `${continentId}-${country.toLowerCase().replace(/\s+/g, '-')}`;
       const h2 = document.createElement("h2");
-      h2.textContent = "🇺🇳 " + country;
+      // Mappa paese → emoji bandiera
+const flagEmoji = {
+  "Italia": "🇮🇹",
+  "Francia": "🇫🇷",
+  "Germania": "🇩🇪",
+  "USA": "🇺🇸",
+  "Giappone": "🇯🇵",
+  "Russia": "🇷🇺"
+};
+
+h2.textContent = (flagEmoji[country] || "🏳️") + " " + country;
       h2.id = countryId;
       h2.className = "country";
       h2.style.marginLeft = "20px";
@@ -81,7 +91,7 @@ async function loadData() {
       
       const countryLi = document.createElement("li");
       countryLi.className = "country-link";
-      countryLi.innerHTML = `<a href="#${countryId}">🇺🇳 ${country}</a>`;
+      countryLi.innerHTML = `<a href="#${countryId}">${flagEmoji[country] || "🏳️"} ${country}</a>`;
       countryLi.style.marginLeft = "15px";
       tocList.appendChild(countryLi);
       
