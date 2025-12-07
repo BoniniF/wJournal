@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     await transporter.sendMail({
       from: `"BoniniF's wJournal - demo" <${process.env.EMAIL_USER}>`,
       to: ["filippomariabonini@libero.it", "bonini.filippo@studenti.salesianisesto.it"],
-      subject: "wJournal  rapporto automatico",
+      subject: "wJournal • rapporto automatico",
       html
     });
 
