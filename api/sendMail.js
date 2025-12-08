@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 //"gcaccialanza@salesianisesto.it", 
     await transporter.sendMail({
       from: `"BoniniF's wJournal - demo" <${process.env.EMAIL_USER}>`,
-      to: ["filippomariabonini@libero.it", "gcaccialanza@salesianisesto.it", "bonini.filippo@studenti.salesianisesto.it"],
+      to: ["filippomariabonini@libero.it", "bonini.filippo@studenti.salesianisesto.it"],
       subject: "wJournal • rapporto automatico",
       html
     });
