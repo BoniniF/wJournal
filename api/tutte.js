@@ -44,14 +44,12 @@ export default async function handler(req, res) {
           ];
 
           // Chiamata a Pollinations
-          const pollRes = await fetch("https://text.Pollinations.ai/", {
+          const pollRes = await fetch("https://bonini.ct.ws/LLMs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               messages,
-              model: "deepseek-ai/deepseek-r1",
-              token: "2lACr6xBuUC51UOr",
-              private: true
+              model: "deepseek-ai/deepseek-r1"
             })
           });
 
