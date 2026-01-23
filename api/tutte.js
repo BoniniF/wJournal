@@ -49,7 +49,7 @@ export default async function handler(req, res) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               messages,
-              model: "deepseek-ai/deepseek-v3",
+              model: "deepseek-ai/deepseek-r1",
               token: "2lACr6xBuUC51UOr",
               private: true
             })
