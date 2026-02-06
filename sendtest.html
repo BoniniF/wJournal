@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invio Report</title>
+    <style>
+        #messaggio {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+        }
+        
+        .successo {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .errore {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .caricamento {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div id="messaggio"></div>
+
+    <script>
+        // Elemento per visualizzare i messaggi
+        const messaggioElement = document.getElementById('messaggio');
+        
+        // Funzione per mostrare messaggi
+        function mostraMessaggio(testo, tipo) {
+            messaggioElement.textContent = testo;
+            messaggioElement.className = tipo;
+            messaggioElement.style.display = 'block';
+            
+            // Nascondi automaticamente dopo 5 secondi per i messaggi di successo/errore
+            if (tipo !== 'caricamento') {
+                setTimeout(() => {
+                    messaggioElement.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        async function inviaReport(contenutoHtml) {
+            // Mostra messaggio di caricamento
+            mostraMessaggio("Invio in corso...", "caricamento");
+            
+            try {
+                const response = await fetch("https://w-journal.vercel.app/api/sendMail", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        html: contenutoHtml
+                    }),
+                });
+                
+                
+                
+                
+                
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    mostraMessaggio("✅ Rapporto inviato con successo!", "successo");
+                    console.log("Email inviata con successo!", data);
+                } else {
+                    const erroreTesto = data.error || `Errore server: ${response.status}`;
+                    mostraMessaggio(`❌ ${erroreTesto}`, "errore");
+                    console.error("Errore lato server:", data.error);
+                }
+            } catch (error) {
+                mostraMessaggio("❌ Errore di rete. Controlla la connessione.", "errore");
+                console.error("Errore di rete:", error);
+            }
+        }
+
+        // Contenuto HTML di esempio (semplificato per leggibilità)
+        const mioHtml = `
+            <!DOCTYPE html>
+            <html lang="it">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <title>Pagina Semplice</title>
+                <style>
+                    /* Il tuo CSS qui */
+                </style>
+            </head>
+            <body>
+                <h1>curva di Lorenz</h1>
+                <p><strong>Buona giornata prof,</strong></p>
+                <!-- Resto del contenuto -->
+                <p><strong>Cordialmente, Bonini Filippo Maria</strong></p>
+            </body>
+            </html>
+        `;
+
+        // Puoi chiamare la funzione automaticamente o al click di un bottone
+        // inviaReport(mioHtml);
+        
+        // Esempio con bottone:
+        document.body.innerHTML += `
+            <div style="text-align: center; margin-top: 50px;">
+                <button id="inviaBtn" style="padding: 10px 20px; font-size: 16px;">
+                    Invia Report
+                </button>
+            </div>
+        `;
+        
+        document.getElementById('inviaBtn').addEventListener('click', () => {
+            inviaReport(mioHtml);
+        });
+    </script>
+</body>
+</html>
