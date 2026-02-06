@@ -98,121 +98,39 @@
         // Contenuto HTML di esempio (semplificato per leggibilità)
         const mioHtml = `
   
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Pagina Semplice</title>
-    <style>
+<table width="100%" cellpadding="0" cellspacing="0" bgcolor="#10330a">
+  <tr>
+    <td align="center" style="color:#ffffff; padding:12px;">
 
-        @font-face {
-            font-family: 'academy engraved let';
-            src: url('https://file.garden/ZvPN_8o8RW_wob8N/turn/AcademyEngravedLetPlain.ttf') format('truetype');
-        }
-          @font-face {
-                 font-family: 'barocco';
-                 src: url('https://file.garden/ZvPN_8o8RW_wob8N/turn/1786%20GLC%20Fournier%20Titling%20W90%20Norm.ttf') format('truetype');
-             }
+      <h1 style="font-family: Georgia, serif; font-size:28px; margin:5px 0;">
+        curva di Lorenz
+      </h1>
 
-          body {
+      <hr style="border:0;border-top:1px solid #ccc;width:80%;">
 
-            text-align: center;
-            padding: 9px;
-            line-height: 1.6;
-            background-color: #10330a;
-            color:white;
-          }
+      <p style="text-align:left;"><strong>Buona giornata prof,</strong></p>
 
-          Bh1 {
-              font-family: academy engraved let;
-    display: block;
-    font-size: 1.8em;
-    margin-block-start: 0.1em;
-    margin-block-end: 0.1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: normal;
-    unicode-bidi: isolate;
-}
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="text-align:left; padding:10px;">
+            Ho incominciato a leggere informazioni sulla curva di Lorenz...
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:10px;">
+            <img src="https://api.microlink.io/?url=https://bonini.ct.ws/lorenz&screenshot=true&meta=false&embed=screenshot.url"
+                 width="200"
+                 style="display:block;border-radius:2px;">
+          </td>
+        </tr>
+      </table>
 
+      <p style="text-align:left;"><strong>Cordialmente, Bonini Filippo Maria</strong></p>
 
-          hr {
-            border: 0;
-            border-top: 1px solid #ccc;
-            margin: 6px auto;
-            width: 80%
-          }
+    </td>
+  </tr>
+</table>
 
-          .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-top: 20px
-          }
-
-          .testo-colonna {
-            text-align: left;
-            max-width: 400px
-          }
-
-          img {
-            max-width: 200px;
-            height: auto;
-            border-radius: 2px
-
-          }
-
-          @media (min-width:568px) {
-            .container {
-              flex-direction: row;
-              justify-content: center;
-              align-items: flex-start
-            }
-          }
-
-
-        @media (min-width: 568px) {
-            .container {
-                flex-direction: row;
-                justify-content: center;
-                align-items: flex-start;
-                /* Distanza significativa su schermi grandi */
-                gap: clamp(40px, 15vw, 300px);
-            }
-        }
-          
-          
-    </style>
-</head>
-<body>
-<Bh1>curva di Lorenz</Bh1>
-<hr>
-<p style="text-align:left;"><strong >Buona giornata prof,</strong></p>
-<div class="container">
-    <div class="testo-colonna">
-        <p>Ho incominciato a leggere informazioni sulla curva di Lorenz e ne ho preparato una simulazione, per quanto limitata a cinque punti dati dal medesimo reddito.  Al termine della pagina, nel riquadro rosato, è elaborata un’interpretazione aggiornata a modifica effettuata trascinando le leve a destra.</p>
-    </div>
-    <div class="immagine">
-        <img src="https://api.microlink.io/?url=https://bonini.ct.ws/lorenz&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url">
-    </div>
-</div>
-<p style="text-align:left;"><strong>Cordialmente, Bonini Filippo Maria</strong></p>
-</body>
-</html>
-        `;
-
-        // Puoi chiamare la funzione automaticamente o al click di un bottone
-        // inviaReport(mioHtml);
-        
-        // Esempio con bottone:
-        document.body.innerHTML += `
-            <div style="text-align: center; margin-top: 50px;">
-                <button id="inviaBtn" style="padding: 10px 20px; font-size: 16px;">
-                    Invia Report
-                </button>
-            </div>
         `;
         
         document.getElementById('inviaBtn').addEventListener('click', () => {
