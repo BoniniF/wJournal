@@ -99,39 +99,92 @@
 
         // Contenuto HTML di esempio (semplificato per leggibilità)
         const mioHtml = `
-  
+  <!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Curva di Lorenz</title>
+</head>
+
+<body style="margin:0;padding:0;">
+
+<!-- Wrapper con sfondo -->
 <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#10330a">
   <tr>
-    <td align="center" style="color:#ffffff; padding:12px;">
+    <td align="center" style="padding:9px;color:#ffffff;line-height:1.6;">
 
-      <h1 style="font-family: Georgia, serif; font-size:28px; margin:5px 0;">
-        curva di Lorenz
-      </h1>
+      <!-- Contenitore centrale -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
 
-      <hr style="border:0;border-top:1px solid #ccc;width:80%;">
-
-      <p style="text-align:left;"><strong>Buona giornata prof,</strong></p>
-
-      <table width="100%" cellpadding="0" cellspacing="0">
+        <!-- Titolo -->
         <tr>
-          <td style="text-align:left; padding:10px;">
-            Ho incominciato a leggere informazioni sulla curva di Lorenz...
+          <td align="center" style="padding:4px 0;">
+            <h1 style="
+              margin:4px 0;
+              font-family: Georgia, 'Times New Roman', serif;
+              font-size:28px;
+              font-weight:normal;
+              color:#ffffff;
+            ">
+              curva di Lorenz
+            </h1>
           </td>
         </tr>
+
+        <!-- Separatore -->
         <tr>
-          <td align="center" style="padding:10px;">
-            <img src="https://api.microlink.io/?url=https://bonini.ct.ws/lorenz&screenshot=true&meta=false&embed=screenshot.url"
-                 width="200"
-                 style="display:block;border-radius:2px;">
+          <td align="center">
+            <hr style="border:0;border-top:1px solid #cccccc;width:80%;">
           </td>
         </tr>
+
+        <!-- Saluto -->
+        <tr>
+          <td style="text-align:left;padding:6px 0;">
+            <strong>Buona giornata prof,</strong>
+          </td>
+        </tr>
+
+        <!-- Testo -->
+        <tr>
+          <td style="text-align:left;padding:10px 0;">
+            Ho incominciato a leggere informazioni sulla curva di Lorenz e ne ho
+            preparato una simulazione, per quanto limitata a cinque punti dati
+            dal medesimo reddito. Al termine della pagina, nel riquadro rosato,
+            è elaborata un’interpretazione aggiornata a modifica effettuata
+            trascinando le leve a destra.
+          </td>
+        </tr>
+
+        <!-- Immagine -->
+        <tr>
+          <td align="center" style="padding:12px 0;">
+            <img
+              src="https://api.microlink.io/?url=https://bonini.ct.ws/lorenz&screenshot=true&meta=false&embed=screenshot.url"
+              width="200"
+              style="display:block;border-radius:2px;max-width:200px;height:auto;"
+              alt="Simulazione curva di Lorenz"
+            >
+          </td>
+        </tr>
+
+        <!-- Firma -->
+        <tr>
+          <td style="text-align:left;padding-top:10px;">
+            <strong>Cordialmente, Bonini Filippo Maria</strong>
+          </td>
+        </tr>
+
       </table>
-
-      <p style="text-align:left;"><strong>Cordialmente, Bonini Filippo Maria</strong></p>
+      <!-- /contenitore -->
 
     </td>
   </tr>
 </table>
+
+</body>
+</html>
+
 
         `;
         
