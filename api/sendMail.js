@@ -13,8 +13,8 @@ export default async function handler(req, res) {
     }
 
     // prende il contenuto del primo <h1>
-    const match = html.match(/<h1[^>]*>(.*?)<\/h1>/i);
-    const subject = match ? match[1].trim() : "wJournal • rapporto automatico";
+   const match = html.match(/<h1[^>]*>\s*([\s\S]*?)\s*<\/h1>/i);
+const subject = match ? match[1].trim() : "wJournal • rapporto automatico";
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
