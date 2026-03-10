@@ -12,19 +12,22 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Nessun HTML inviato" });
     }
 
-    // Configura il trasporto (Gmail o il tuo SMTP)
+    // prende il contenuto del primo <h1>
+    const match = html.match(/<h1[^>]*>(.*?)<\/h1>/i);
+    const subject = match ? match[1].trim() : "wJournal • rapporto automatico";
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER,  // tua Gmail
-        pass: process.env.EMAIL_PASS   // password app (non la password normale!)
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
-//"gcaccialanza@salesianisesto.it", 
+
     await transporter.sendMail({
-      from: `"BoniniF's wJournal - demo" <${process.env.EMAIL_USER}>`,
+      from: `"Bonini Filippo Maria" <${process.env.EMAIL_USER}>`,
       to: ["filippomariabonini@libero.it", "bonini.filippo@studenti.salesianisesto.it"],
-      subject: "wJournal • rapporto automatico",
+      subject: subject,
       html
     });
 
